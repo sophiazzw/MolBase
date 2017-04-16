@@ -1,17 +1,13 @@
 {
-  "name": "didi_h5",
+  "name": "molbase",
   "version": "1.0.0",
-  "description": "didi h5 structure",
+  "description": "molbase front-end structure",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
     "local-build": "NODE_ENV=local_test webpack --config webpack.release.config.js",
     "test-build": "NODE_ENV=test webpack --config webpack.release.config.js",
-    "project-build": "NODE_ENV=prod webpack -p --config webpack.release.config.js",
-    "hybrid-build": "NODE_ENV=hybrid webpack -p --config webpack.release.config.js && zip -r hybridFiles/whole/rentCar_oversea.zip new-release && rm -r new-release",
-    "set-version": "git branch >> gitBranch.txt && git log -1 --pretty=format:'%H'>>gitLog.txt && node setHybridVersion.js && rm gitBranch.txt && rm gitLog.txt",
-    "hybrid-whole": "zip -r dist-project.zip ../dist-project",
-    "hybrid-update": "rm hybridFileList.txt && git diff cb7faf83 d0efe7ac --name-only>>hybridFileList.txt && node hybridList.js && cat hybridFileList.txt | xargs zip update.zip"
+    "project-build": "NODE_ENV=prod webpack -p --config webpack.release.config.js"
   },
   "dependencies": {
     "child_process": "^1.0.2",
