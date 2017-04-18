@@ -88,6 +88,6 @@ function loadConfig(platform, language, biz, page) {
     }
 }
 
-module.exports.resolve = loadCommonConfig(platform, language, biz).resolve;
-module.exports.module = loadCommonConfig(platform, language, biz).module;
+module.exports.resolve = loadCommonConfig(platform, language, biz, pageCategory[platform]).resolve;
+module.exports.module = loadCommonConfig(platform, language, biz, pageCategory[platform]).module;
 loadConfig(platform, language, biz);

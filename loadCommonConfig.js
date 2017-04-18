@@ -1,14 +1,17 @@
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-function loadCommonConfig(platform, language, biz) {
+function loadCommonConfig(platform, language, biz, platformPages) {
+    var languagePages = platformPages[language];
+    var pageList = languagePages[biz];
     var moduleName = platform + "-" + language + "-" + biz;
-    return {
+    var moduleRoute = platform + "/" + language + "/" + biz;
+    var config = {
         resolve: {
             alias: {
-                js: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/js"),
-                css: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/css"),
-                imgs: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/imgs"),
+                js: path.join(__dirname, "page/" + moduleRoute + "/assets/js"),
+                css: path.join(__dirname, "page/" + moduleRoute + "/assets/css"),
+                imgs: path.join(__dirname, "page/" + moduleRoute + "/assets/imgs"),
                 'common-fuc': path.join(__dirname, "common/assets/js/fuc/common.js"),
                 'common-imgs': path.join(__dirname, "common/assets/imgs"),
                 'common-plugins': path.join(__dirname, "common/assets/js/plugins"),
@@ -20,7 +23,8 @@ function loadCommonConfig(platform, language, biz) {
                 zepto: path.join(__dirname, 'common/assets/js/vendor/zepto.js'),
                 underscore: path.join(__dirname, "common/assets/js/vendor/underscore.js"),
                 queryString: path.join(__dirname, "common/assets/js/fuc/queryString.js"),
-                localStorage: path.join(__dirname, "common/assets/js/fuc/localStorage.js")
+                localStorage: path.join(__dirname, "common/assets/js/fuc/localStorage.js"),
+                'biz-imgs': path.join(__dirname, "page/" + moduleRoute + "/assets/imgs")
             }
         },
         module: {
@@ -52,7 +56,20 @@ function loadCommonConfig(platform, language, biz) {
                 }
             ]
         }
+    };
+
+    loadPageAlias(pageList, ["subViews"]);
+
+    function loadPageAlias(pageList, aliasList) {
+        for(var i=0;i<pageList.length;i++) {
+            for(var j=0;j<aliasList.length;j++) {
+                var key = pageList[i] + "-" + aliasList[j];
+                config.resolve.alias[key] = "page/" + moduleRoute + "/views/" + pageList[i] +  "/" + aliasList[j];
+            }
+        }
     }
+    console.log(config);
+    return config;
 }
 
 module.exports = loadCommonConfig;
