@@ -1,4 +1,4 @@
-require("../common.less");
+require("../../css/common.less");
 require("./jsData/exports.js");
 var localStorage = require("localStorage");
 var queryString = require("queryString");

@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "local-build": "NODE_ENV=local_test webpack --config webpack.release.config.js",
-    "test-build": "NODE_ENV=test webpack --config webpack.release.config.js",
-    "project-build": "NODE_ENV=prod webpack -p --config webpack.release.config.js"
+    "build": "webpack --config webpack.release.config.js"
   },
   "dependencies": {
     "child_process": "^1.0.2",

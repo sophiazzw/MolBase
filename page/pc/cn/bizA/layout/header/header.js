@@ -1,3 +1,4 @@
+require("./header.less");
 var header = {
     render: function() {
         var tpl = _.template(require("./header.html"));

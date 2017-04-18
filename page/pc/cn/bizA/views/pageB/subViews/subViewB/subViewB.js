@@ -1,3 +1,4 @@
+require("./subViewB.less");
 $.ajax({
     type: "get",
     url: "/mockData/bizA/pageA/getRmoteData.json",

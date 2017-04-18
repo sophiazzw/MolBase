@@ -32,7 +32,8 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             $: platform == "pc" ? 'jquery' : 'zepto',
-            _: 'underscore'
+            _: 'underscore',
+            common: 'common-fuc'
         }),
 
         new ExtractTextPlugin('[name].css'), //单独使用link标签加载css并设置路径，相对于output配置中的publicePath
@@ -90,4 +91,4 @@ function loadConfig(platform, language, biz, page) {
 
 module.exports.resolve = loadCommonConfig(platform, language, biz, pageCategory[platform]).resolve;
 module.exports.module = loadCommonConfig(platform, language, biz, pageCategory[platform]).module;
-loadConfig(platform, language, biz);
+loadConfig(platform, language, biz, page);

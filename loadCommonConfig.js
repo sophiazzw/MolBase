@@ -24,7 +24,9 @@ function loadCommonConfig(platform, language, biz, platformPages) {
                 underscore: path.join(__dirname, "common/assets/js/vendor/underscore.js"),
                 queryString: path.join(__dirname, "common/assets/js/fuc/queryString.js"),
                 localStorage: path.join(__dirname, "common/assets/js/fuc/localStorage.js"),
-                'biz-imgs': path.join(__dirname, "page/" + moduleRoute + "/assets/imgs")
+                'biz-imgs': path.join(__dirname, "page/" + moduleRoute + "/assets/imgs"),
+                'biz-layout': path.join(__dirname, "page/" + moduleRoute + "/layout"),
+                'pc-plugins-mask': path.join(__dirname, "page/pc/module/assets/js/plugins/mask/mask.js")
             }
         },
         module: {
@@ -64,11 +66,10 @@ function loadCommonConfig(platform, language, biz, platformPages) {
         for(var i=0;i<pageList.length;i++) {
             for(var j=0;j<aliasList.length;j++) {
                 var key = pageList[i] + "-" + aliasList[j];
-                config.resolve.alias[key] = "page/" + moduleRoute + "/views/" + pageList[i] +  "/" + aliasList[j];
+                config.resolve.alias[key] = path.join(__dirname, "page/" + moduleRoute + "/views/" + pageList[i] +  "/" + aliasList[j]);
             }
         }
     }
-    console.log(config);
     return config;
 }
 
