@@ -1,7 +1,8 @@
 module.exports = {
     host: "",
-    projectPath: "rentCar/oversea", //开发目录路径
-    pageName: "", //具体页面
-    platform: "webapp", //平台,必填
-    moduleName: "rentCar-oversea" //模块名,Hybrid打包用
+    platform: "pc", //平台
+    language: "cn", //语言
+    biz: "bizA", //业务
+    pageName: "pageA", //具体页面
+    moduleName: "pc-cn-bizA" //模块名,Hybrid打包用
 };

@@ -1,26 +1,30 @@
 /* var pageListExample = {
-    "hybrid": {
-        "rentCar/oversea/": [
-            "addDriver",
-            "carDetail",
-            "carList",
-            "confirmOrder",
-            "orderList",
-            "orderResult",
-            "selectCity",
-            "transDriverLicense",
-            "fetchCarForm",
-            "welfare",
-            "storeMap",
-            "help",
-            "helpSub",
-            "helpDtl"
-        ]
+    "pc": {
+        "en": {
+            "bizA": [
+                "enBizApageA",
+                "enBizApageB"
+            ],
+            "bizB": [
+                "enBizBpageA",
+                "enBizBpageB"
+            ]
+        },
+        "cn": {
+            "bizA": [
+                "enBizApageA",
+                "enBizApageB"
+            ],
+            "bizB": [
+                "enBizBpageA",
+                "enBizBpageB"
+            ]
+        }
     }
 }
 */
 var pageList = {};
-var platformList = ["hybrid", "webapp"];
+var platformList = ["pc", "mobile", "app"];
 for(var i=0;i<platformList.length;i++) {
     var platform = platformList[i];
     var route = "./config/pageList/" + platform + ".js";

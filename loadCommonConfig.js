@@ -1,37 +1,26 @@
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-function loadCommonConfig(platform, projectPath) {
-    var moduleName = platform + "-" + projectPath.replace("/", "-");
+function loadCommonConfig(platform, language, biz) {
+    var moduleName = platform + "-" + language + "-" + biz;
     return {
         resolve: {
             alias: {
-                js: path.join(__dirname, "page/" + platform + "/assets/js"),
-                css: path.join(__dirname, "page/" + platform + "/assets/css"),
-                'biz-imgs': path.join(__dirname, "biz/imgs"),
+                js: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/js"),
+                css: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/css"),
+                imgs: path.join(__dirname, "page/" + platform + "/" + language + "/" + biz + "/assets/imgs"),
+                'common-fuc': path.join(__dirname, "common/assets/js/fuc/common.js"),
                 'common-imgs': path.join(__dirname, "common/assets/imgs"),
-                logic: path.join(__dirname, "biz/logic"),
-                component:path.join(__dirname, "common/component/"),
-                'component-noDataPage': path.join(__dirname, "common/component/noDataPage/noDataPage.js"),
-                'component-titleBar': path.join(__dirname, "common/component/titleBar/titleBar.js"),
-                'component-riskControl': path.join(__dirname, "common/component/riskControl/riskControl.js"),
-                plugins: path.join(__dirname, "common/assets/js/plugins/"),
-                'plugins-dialog': path.join(__dirname, "common/assets/js/plugins/dialog/dialog.js"),
-                'plugins-mask': path.join(__dirname, "common/assets/js/plugins/mask/mask.js"),
-                vendor: path.join(__dirname, "common/assets/js/vendor/"),
-                'vendor-mobiscroll': path.join(__dirname, "common/assets/js/vendor/mobiscroll/mobiscroll.js"),
-                'vendor-islider': path.join(__dirname, "common/assets/js/vendor/swiper/js/islider.js"),
-                common: path.join(__dirname, 'common/assets/js/global/common.js'),
-                Platform: path.join(__dirname, 'common/assets/js/global/platform.js'),
+                'common-plugins': path.join(__dirname, "common/assets/js/plugins"),
+                'common-plugins-mask': path.join(__dirname, "common/assets/js/plugins/mask/mask.js"),
+                'common-component':path.join(__dirname, "common/component/"),
+                'common-component-noDataPage': path.join(__dirname, "common/component/noDataPage/noDataPage.js"),
+                'common-vendor': path.join(__dirname, "common/assets/js/vendor/"),
+                'common-vendor-mobiscroll': path.join(__dirname, "common/assets/js/vendor/mobiscroll/mobiscroll.js"),
                 zepto: path.join(__dirname, 'common/assets/js/vendor/zepto.js'),
                 underscore: path.join(__dirname, "common/assets/js/vendor/underscore.js"),
-                hybrid: path.join(__dirname, "page/hybrid/module/hybrid.js"),
-                webapp: path.join(__dirname, "page/webapp/module/webapp.js"),
-                login: path.join(__dirname, "page/webapp/module/login/loginLoader.js"),
-                queryString: path.join(__dirname, "page/webapp/module/queryString.js"),
-                localStorage: path.join(__dirname, "page/webapp/module/localStorage.js"),
-                map: path.join(__dirname, "page/webapp/module/map.js"),
-                path: path.join(__dirname, "page/webapp/module/path.js")
+                queryString: path.join(__dirname, "common/assets/js/fuc/queryString.js"),
+                localStorage: path.join(__dirname, "common/assets/js/fuc/localStorage.js")
             }
         },
         module: {

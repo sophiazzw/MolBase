@@ -1,22 +1,22 @@
 module.exports =  {
     "en": {
         "bizA": [
-            "enBizApageA",
-            "enBizApageB"
+            "pageA",
+            "pageB"
         ],
         "bizB": [
-            "enBizBpageA",
-            "enBizBpageB"
+            "pageA",
+            "pageB"
         ]
     },
     "cn": {
         "bizA": [
-            "enBizApageA",
-            "enBizApageB"
+            "pageA",
+            "pageB"
         ],
         "bizB": [
-            "enBizBpageA",
-            "enBizBpageB"
+            "pageA",
+            "pageB"
         ]
     }
 };

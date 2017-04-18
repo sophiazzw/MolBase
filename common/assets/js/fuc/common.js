@@ -1,7 +1,11 @@
 require("../common.less");
 require("./jsData/exports.js");
-var common = {
+var localStorage = require("localStorage");
+var queryString = require("queryString");
 
+var common = {
+    lS: localStorage,
+    qS: queryString
 };
 
 module.exports = common;

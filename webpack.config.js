@@ -2,13 +2,13 @@ var path = require('path');
 var webpack = require('webpack');
 var pageCategory = require("./pageCategory.js");
 var loadCommonConfig = require("./loadCommonConfig.js");
-var perConf = {};
-try {
-    perConf = require("./localConf.js");
-} catch (e) {}
-var projectPath = perConf.projectPath || "";
-var pageName = perConf.pageName || "";
+var perConf = require("./localConf.js");
 var platform = perConf.platform;
+var language = perConf.language;
+var biz = perConf.biz;
+var page = perConf.pageName || "";
+var moduleName = platform + "-" + language + "-" + biz;
+
 /*
  extract-text-webpack-plugin插件，
  有了它就可以将你的样式提取到单独的css文件里，
@@ -24,17 +24,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     output: {
         path: path.join(__dirname, ''), //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
-        publicPath: '/new-release/', //模板、样式、脚本、图片等资源对应的server上的路径
+        publicPath: '/', //模板、样式、脚本、图片等资源对应的server上的路径
         filename: '[name].js', //每个页面对应的主js的生成配置
         chunkFilename: 'js/[id].chunk.js' //chunk生成的配置
     },
 
     plugins: [
         new webpack.ProvidePlugin({
-            $: 'zepto',
-            webapp: 'webapp',
-            hybrid: 'hybrid',
-            comm: 'common',
+            $: platform == "pc" ? 'jquery' : 'zepto',
             _: 'underscore'
         }),
 
@@ -48,21 +45,21 @@ module.exports = {
         contentBase: './',
         host: "",
         //host: perConf.host || "localhost",
-        port: 7777, //默认8080
+        port: 6060, //默认8080
         inline: true, //可以监控js变化
         hot: true //热启动
     }
 };
 
-function runtime(path, page) {
-    var entryID = platform + '-' + path.replace("/", "-") + "/" + page; // hybrid-rentCar-oversea/selectCity
-    var fileRoute = path + "/" + page; //rentCar/oversea/selectCity
-    module.exports.entry[entryID] = "./page/" + platform + "/assets/js/" + fileRoute + ".js"; // ./page/hybrid/assets/js/rentCar/oversea/selectCity.js
+function runtime(page) {
+    var entryID = moduleName + "/" + page; // pc-cn-biz/pageA
+    var fileRoute = moduleName.replace(/-/g, "/"); //pc/cn/biz
+    module.exports.entry[entryID] = "./page/" + fileRoute + "/assets/js/" + page + "/" + page + "Controller.js"; // ./page/pc/cn/bizA/assets/js/pageA/pageAController.js
     module.exports.plugins.push(new HtmlWebpackPlugin({
         //根据模板插入css/js等生成最终HTML
         filename: entryID + ".html",
         //生成的html存放路径，相对于path
-        template: './page/' + platform + '/views/' + fileRoute + '.html',
+        template: './page/' + fileRoute + '/views/' + page + "/" + page + '.html',
         //js插入的位置，true/'head'/'body'/false
         inject: 'body',
         hash: true, //为静态资源生成hash值
@@ -74,33 +71,23 @@ function runtime(path, page) {
     }));
 }
 
-function loadConfig(platform, path, page) {
+function loadConfig(platform, language, biz, page) {
     module.exports.entry = {};
     var platformPages = pageCategory[platform];
-    var pageList = [];
-    if (path) {
-        if (page) {
-            var eachPage = page.split(",");
-            for (var i = 0; i < eachPage.length; i++) {
-                runtime(path, eachPage[i]);
-            }
-        } else {
-            pageList = platformPages[path];
-            for (var j = 0; j < pageList.length; j++) {
-                runtime(path, pageList[j]);
-            }
+    var languagePages = platformPages[language];
+    var pageList = languagePages[biz];
+    if (page) {
+        var eachPage = page.split(",");
+        for (var i = 0; i < eachPage.length; i++) {
+            runtime(eachPage[i]);
         }
     } else {
-        //不传path则监听所有页面
-        for (var eachPath in platformPages) {
-            pageList = platformPages[eachPath];
-            for (var k = 0; k < pageList.length; k++) {
-                runtime(eachPath, pageList[k]);
-            }
+        for (var j = 0; j < pageList.length; j++) {
+            runtime(pageList[j]);
         }
     }
 }
 
-module.exports.resolve = loadCommonConfig(platform, projectPath).resolve;
-module.exports.module = loadCommonConfig(platform, projectPath).module;
-loadConfig(platform, projectPath, pageName);
+module.exports.resolve = loadCommonConfig(platform, language, biz).resolve;
+module.exports.module = loadCommonConfig(platform, language, biz).module;
+loadConfig(platform, language, biz);
