@@ -15,16 +15,16 @@ var fuc = {
         this.renderRemoteData();
     },
     renderLocalData: function() {
-        var tpl = _.template($("#content1_tpl").html());
-        var html = tpl({data: {content:"localData"}});
-        $("#content1").append(html);
+        // var tpl = _.template($("#content1_tpl").html());
+        // var html = tpl({data: {content:"localData"}});
+        // $("#content1").append(html);
     },
     renderRemoteData: function() {
         $.ajax({
             type: "get",
-            url: "/mockData/bizA/pageA/getRmoteData.json",
+            url: "/mockData/bizA/pageA/getRemoteData.json",
             success: function(data) {
-                var tpl = _.template($("#content2_tpl").html());
+                var tpl = _.template($("#content1_tpl").html());
                 var html = tpl({data: data});
                 $("#content2").append(html);
             }
